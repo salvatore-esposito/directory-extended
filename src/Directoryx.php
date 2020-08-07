@@ -18,7 +18,7 @@ class Directoryx extends \Directory
     /**
    * Directory name or pathname
    *
-   * @since 1.0.0
+   * @since 1.0.1
    * @var string
    */
   private $directoryName;
@@ -55,7 +55,7 @@ class Directoryx extends \Directory
   public function __construct(string $directoryName)
   {
     $this->directoryName = $directoryName;
-    $this->$directoryElements = $this->scan_dir();
+    $this->directoryElements = $this->scan_dir();
   }
 
   /**
@@ -82,7 +82,7 @@ class Directoryx extends \Directory
   public function getRealPath(string $fileName = '') : string
   {
     $fullPathString = $fileName ? "%s/%s" : "%s%s";
-    return sprintf($fullPathString, realpath($this->directoryName), $fileName);
+    return sprintf($fullPathString, getRealPath($this->directoryName), $fileName);
   }
 
   /**
@@ -161,25 +161,39 @@ class Directoryx extends \Directory
   }
 
   /**
-  * This method does two things: find all the directories by a string
-  * and find the type of elements (file or directory)
-  * @todo split in two methods and create another one that
-  *       finds elements by a string and by their own type.
-  */
+   * Return the all the elements searched by needle.
+   *
+   * @since 1.1.0
+   *
+   * @param string $needle the string to use to search of.
+   *
+   *
+   * @return array the elements filtered by the needle.
+   */
   public function searchByString(string $needle) : array
   {
     $found = [];
     foreach ($this->directoryElements as $element) {
       if(strpos ( $element , $needle ) !== FALSE)
       {
-        $found[$element];
+        $found[] = $element;
       }
     }
 
     return $found;
   }
 
-  public function getByType(int $type = Directoryx::FILE
+  /**
+   * Return the all the elements searched by type.
+   *
+   * @since 1.1.0
+   *
+   * @param int a constant type to use to reaearch in elements.
+   *
+   *
+   * @return array the elements filtered by the type supplied.
+   */
+  public function searchByType(int $type = Directoryx::FILE
                                       | Directoryx::DIRECTORY) : array
   {
     if(!in_array($type, [Directoryx::FILE,
@@ -195,14 +209,31 @@ class Directoryx extends \Directory
       $isRequestedFile = ( $type === Directoryx::FILE );
       $isRequestedDir = ( $type === Directoryx::DIRECTORY );
 
-      $isFile = $this->isFile(($this->getRealPath($file)));
+      $isFile = $this->isFile(($this->getRealPath($element)));
 
       $switchElement = !( ($isRequestedFile && !$isFile) ||
                           ($isRequestedDir && $isFile) );
 
-      $found[] = $switchElement ? $file : NULL;
+      $found[] = $switchElement ? $element : NULL;
     }
     return array_filter($found);
+  }
+
+  /**
+   * Return the all the elements filtered by the needle and type.
+   *
+   * @since 1.1.0
+   *
+   * @param string $needle the string to use to search of.
+   * @param int a constant type to use to reaearch in elements.
+   *
+   * @return array the elements filtered by the type and needle supplied.
+   */
+  public function searchByStringAndType(string $needle, int $type = Directoryx::FILE
+                                      | Directoryx::DIRECTORY) : array
+  {
+    $byString = $this->searchByString($needle);
+    return $this->searchByType($byString);
   }
 
 }
