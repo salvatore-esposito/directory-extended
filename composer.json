@@ -1,0 +1,21 @@
+{
+    "name": "salvio/dir",
+    "description": "A class that extends the default Directory class in PHP",
+    "type": "library",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Salvatore Esposito",
+            "email": "salvatore.esposito2v@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "autoload": {
+      "psr-4": {
+          "Directory\\": "src/"
+      }
+    }
+}
