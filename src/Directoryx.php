@@ -7,14 +7,13 @@
   * @license GPLv3
   */
 
-  namespace Directory
+  namespace Directory;
 
   /**
   * class Directory eXtended
-  * @version 1.0.0
   *
   */
-class DirectoryX extends Directory
+class Directoryx extends \Directory
 {
     /**
    * Directory name or pathname
@@ -39,7 +38,7 @@ class DirectoryX extends Directory
   public const DIRECTORY = 0b10;
 
   /**
-   * Create a ExDirectory instance
+   * Create a Directoryx instance
    *
    * @since 1.0.0
    *
@@ -48,6 +47,19 @@ class DirectoryX extends Directory
   public function __construct(string $directoryName)
   {
     $this->directoryName = $directoryName;
+  }
+
+  /**
+   * Return if the elements is a file or a dir.
+   *
+   * @since 1.0.0
+   *
+   * @param string $element name of elements to be tested.
+   * @return bool type file|dir of the element.
+   */
+  public function isFile($element)
+  {
+    return is_file($element);
   }
 
   /**
@@ -136,12 +148,11 @@ class DirectoryX extends Directory
   *       finds elements by a string and by their own type.
   */
   public function searchByString(string $needle,
-          int $type = ExDirectory::FILE | ExDirectory::DIRECTORY) : array
+          int $type = Directoryx::FILE | Directoryx::DIRECTORY) : array
   {
-
-    if(!in_array($type, [ExDirectory::FILE,
-                         ExDirectory::DIRECTORY,
-                         ExDirectory::FILE | ExDirectory::DIRECTORY]
+    if(!in_array($type, [Directoryx::FILE,
+                         Directoryx::DIRECTORY,
+                         Directoryx::FILE | Directoryx::DIRECTORY]
                 )
       )
     {
@@ -154,12 +165,12 @@ class DirectoryX extends Directory
     foreach ($files as $file) {
       if(strpos ( $file , $needle ) !== FALSE)
       {
-        $isRequestedFile = ( $type === ExDirectory::FILE );
-        $isRequestedDir = ( $type === ExDirectory::DIRECTORY );
-        $isDir = is_dir($this->getRealPath($file));
-        $isFile = is_file($this->getRealPath($file));
+        $isRequestedFile = ( $type === Directoryx::FILE );
+        $isRequestedDir = ( $type === Directoryx::DIRECTORY );
 
-        $switchElement = !( ($isRequestedFile && $isDir) || ($isRequestedDir && $isFile) );
+        $isFile = $this->isFile(($this->getRealPath($file)));
+
+        $switchElement = !( ($isRequestedFile && !$isFile) || ($isRequestedDir && $isFile) );
 
         $found[] = $switchElement ? $file : NULL;
       }
