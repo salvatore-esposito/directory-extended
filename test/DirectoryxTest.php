@@ -94,4 +94,15 @@ class DirectoryxTest extends TestCase
       );
     }
 
+    public function testGetTotalElementsByType() : void
+    {
+      $expected = 11;
+
+      $this->assertEquals(
+        $expected,
+        $this->dirx->getTotalElementsByType('is_file')
+      );
+
+    }
+
 }

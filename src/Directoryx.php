@@ -18,7 +18,7 @@ class Directoryx extends \Directory
     /**
    * Directory name or pathname
    *
-   * @since 1.0.1
+   * @since 1.0.0
    * @var string
    */
   private $directoryName;
@@ -26,7 +26,7 @@ class Directoryx extends \Directory
     /**
    * All Elements in this directory
    *
-   * @since 1.0.0
+   * @since 1.1.0
    * @var string
    */
   private $directoryElements;
@@ -61,7 +61,7 @@ class Directoryx extends \Directory
   /**
    * Return if the elements is a file or a dir.
    *
-   * @since 1.0.0
+   * @since 1.1.0
    *
    * @param string $element name of elements to be tested.
    * @return bool type file|dir of the element.
@@ -86,7 +86,7 @@ class Directoryx extends \Directory
   }
 
   /**
-   * Scan all element of thsi directory.
+   * Scan all elements of this directory.
    * please note that . and .. are stripped
    *
    * @since 1.0.0
@@ -109,7 +109,7 @@ class Directoryx extends \Directory
   }
 
   /**
-   * Return all element of $this.
+   * Return total count of elements of $this.
    *
    * @since 1.0.0
    *
@@ -121,11 +121,11 @@ class Directoryx extends \Directory
   }
 
   /**
-   * Return all element of $this.
+   * Return all elements of $this.
    *
    * @since 1.0.1
    *
-   * @return array total file and dir in the current directory object.
+   * @return array total files and dirs in the current directory object.
    */
   public function getAllElements() : array
   {
@@ -133,31 +133,23 @@ class Directoryx extends \Directory
   }
 
   /**
-   * Return the full path of all elements in this directory.
+   * Return total count of elements of passed type.
    *
    * @since 1.0.0
    *
-   * @param string $callabe is_file or is_dir function.
+   * @param int a constant type to use to reaearch in elements.
    *
    * @throws BadFunctionCallException if the provided argument is not
-   * is_dir or is_file
+   * Directoryx::FILE or Directoryx::DIRECTORY
    *
-   * @return int the total file or dir founded in this dir.
+   * @return int the total files or dirs founded in this dir.
    */
-  public function getTotalElementsByType(string $callable = 'is_file') : int
+  public function getTotalElementsByType(int $type =  Directoryx::FILE) : int
   {
-    if($callable !== 'is_file' && $callable !== 'is_dir')
-        throw new \BadFunctionCallException('Only is_file or is_dir Accepted');
+    if($type !== Directoryx::FILE && $type !== Directoryx::DIRECTORY)
+        throw new \BadFunctionCallException('Mismatch constant passed!');
 
-    $files = 0;
-    foreach ($this->directoryElements as $file) {
-      if( call_user_func ( $callable, $this->getRealPath($file) ) )
-      {
-        $files++;
-      }
-    }
-
-    return $files;
+    return count($this->searchByType($type));
   }
 
   /**
@@ -229,7 +221,7 @@ class Directoryx extends \Directory
    *
    * @return array the elements filtered by the type and needle supplied.
    */
-  public function searchByStringAndType(string $needle, int $type = Directoryx::FILE
+  public function searchByStringType(string $needle, int $type = Directoryx::FILE
                                       | Directoryx::DIRECTORY) : array
   {
     $byString = $this->searchByString($needle);
