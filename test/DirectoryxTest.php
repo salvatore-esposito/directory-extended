@@ -19,12 +19,10 @@ class DirectoryxTest extends TestCase
               */
               public function scan_dir() : array
               {
-                $scanDir = range(1,10);
-                //$scanDir['elementsType'] =  [0,1,0,1,1,0,1,1,0,1 ];
-                return $scanDir;
+                return range(1,10);
               }
 
-              public function getRealPath(string $fileName = '')
+              public function getRealPath(string $fileName = '') : string
               {
                 return 'dummy_path';
               }

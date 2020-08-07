@@ -70,7 +70,7 @@ class Directoryx extends \Directory
    * @param string $fileName Tname or relative path of the file.
    * @return string full path f the file passed.
    */
-  public function getRealPath(string $fileName = '')
+  public function getRealPath(string $fileName = '') : string
   {
     $fullPathString = $fileName ? "%s/%s" : "%s%s";
     return sprintf($fullPathString, realpath($this->directoryName), $fileName);
