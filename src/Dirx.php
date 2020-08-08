@@ -7,13 +7,13 @@
   * @license GPLv3
   */
 
-  namespace Directory;
+  namespace Salvio;
 
   /**
   * class Directory eXtended
   *
   */
-class Directoryx extends \Directory
+class Dirx extends \Directory
 {
     /**
    * Directory name or pathname
@@ -46,7 +46,7 @@ class Directoryx extends \Directory
   public const DIRECTORY = 0b10;
 
   /**
-   * Create a Directoryx instance
+   * Create a Dirx instance
    *
    * @since 1.0.0
    *
@@ -140,13 +140,13 @@ class Directoryx extends \Directory
    * @param int a constant type to use to reaearch in elements.
    *
    * @throws BadFunctionCallException if the provided argument is not
-   * Directoryx::FILE or Directoryx::DIRECTORY
+   * Dirx::FILE or Dirx::DIRECTORY
    *
    * @return int the total files or dirs founded in this dir.
    */
-  public function getTotalElementsByType(int $type =  Directoryx::FILE) : int
+  public function getTotalElementsByType(int $type =  Dirx::FILE) : int
   {
-    if($type !== Directoryx::FILE && $type !== Directoryx::DIRECTORY)
+    if($type !== Dirx::FILE && $type !== Dirx::DIRECTORY)
         throw new \BadFunctionCallException('Mismatch constant passed!');
 
     return count($this->searchByType($type));
@@ -185,12 +185,12 @@ class Directoryx extends \Directory
    *
    * @return array the elements filtered by the type supplied.
    */
-  public function searchByType(int $type = Directoryx::FILE
-                                      | Directoryx::DIRECTORY, array $elements = [] ) : array
+  public function searchByType(int $type = Dirx::FILE
+                                      | Dirx::DIRECTORY, array $elements = [] ) : array
   {
-    if(!in_array($type, [Directoryx::FILE,
-                         Directoryx::DIRECTORY,
-                         Directoryx::FILE | Directoryx::DIRECTORY]
+    if(!in_array($type, [Dirx::FILE,
+                         Dirx::DIRECTORY,
+                         Dirx::FILE | Dirx::DIRECTORY]
                 )
       )
     {
@@ -200,8 +200,8 @@ class Directoryx extends \Directory
     $searchInThisElements = count($elements) ? $elements : $this->directoryElements;
 
     foreach ($searchInThisElements as $element) {
-      $isRequestedFile = ( $type === Directoryx::FILE );
-      $isRequestedDir = ( $type === Directoryx::DIRECTORY );
+      $isRequestedFile = ( $type === Dirx::FILE );
+      $isRequestedDir = ( $type === Dirx::DIRECTORY );
 
       $isFile = $this->isFile(($this->getRealPath($element)));
 
@@ -223,8 +223,8 @@ class Directoryx extends \Directory
    *
    * @return array the elements filtered by the type and needle supplied.
    */
-  public function searchByStringType(string $needle, int $type = Directoryx::FILE
-                                      | Directoryx::DIRECTORY) : array
+  public function searchByStringType(string $needle, int $type = Dirx::FILE
+                                      | Dirx::DIRECTORY) : array
   {
     $byString = $this->searchByString($needle);
     return $this->searchByType($type, $byString);

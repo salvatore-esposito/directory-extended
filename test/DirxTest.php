@@ -3,16 +3,16 @@
 require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use Directory\Directoryx;
+use Salvio\Dirx;
 
-class DirectoryxTest extends TestCase
+class DirxTest extends TestCase
 {
     protected $dirx;
 
     public function setUp() : void
     {
       /* need to ovverride some methods */
-      $this->dirx = new class('dummy_name') extends Directoryx
+      $this->dirx = new class('dummy_name') extends Dirx
             {
               /**
               * override
@@ -75,17 +75,17 @@ class DirectoryxTest extends TestCase
 
       $this->assertNotEquals(
          $expected,
-         $this->dirx->searchByType(Directoryx::DIRECTORY)
+         $this->dirx->searchByType(Dirx::DIRECTORY)
       );
 
       $this->assertEquals(
          $expected,
-         $this->dirx->searchByType(Directoryx::FILE)
+         $this->dirx->searchByType(Dirx::FILE)
       );
 
       $this->assertEquals(
         $expected,
-        $this->dirx->searchByType(Directoryx::FILE || Directoryx::DIRECTORY)
+        $this->dirx->searchByType(Dirx::FILE || Dirx::DIRECTORY)
       );
 
       $this->assertEquals(
@@ -100,9 +100,7 @@ class DirectoryxTest extends TestCase
 
       $this->assertEquals(
         $expected,
-        $this->dirx->getTotalElementsByType(Directoryx::FILE)
+        $this->dirx->getTotalElementsByType(Dirx::FILE)
       );
-
     }
-
 }
