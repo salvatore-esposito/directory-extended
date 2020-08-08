@@ -11,9 +11,9 @@ PHP 7.0 is required.
 
 ##### Create a new instance pointing to a directory:
 
-use Directory\Directoryx
+use Salvio\Dirx
 
-$mydir = new Directoryx( '/home/imauser/mydir' );
+$mydir = new Dirx( '/home/imauser/mydir' );
 
 ##### Return all the elements of this dir:
 
@@ -23,18 +23,18 @@ $mydir->getCountElements();
 
 - ###### all directories:
 
-	$dirx->getTotalElementsByType(Directoryx::DIRECTORY);
+	$dirx->getTotalElementsByType(Dirx::DIRECTORY);
 
 
 -  ###### all files:
 
-	$dirx->getTotalElementsByType(Directoryx::FILES);
+	$dirx->getTotalElementsByType(Dirx::FILES);
 
 - ###### all files and directories:
 
 	$dirx->getTotalElementsByType();
 
-	$dirx->getTotalElementsByType(Directoryx::FILES | Directoryx::DIRECTORY);
+	$dirx->getTotalElementsByType(Dirx::FILES | Dirx::DIRECTORY);
 
 ##### Return all files and directories by a supplied string:
 
@@ -42,4 +42,4 @@ $dirx->searchByString('mar');
 
 ##### Return all elements by type and by a supplied string:
 
-$dirx->searchByStringType( 'mar', Directoryx::DIRECTORY );
+$dirx->searchByStringType( 'mar', Dirx::DIRECTORY );
