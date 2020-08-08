@@ -1,7 +1,7 @@
 <?php
   /**
   * @author Salvatore Esposito
-  * @version 1.0.0
+  * @version 2.1.0
   *
   * @copyright All rights reserved by Salvatore Esposito
   * @license GPLv3
