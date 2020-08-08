@@ -3,7 +3,7 @@
 ### Install
 Installing dir is simple:  you can download the class and use it or better you can use composer:
 
-`composer require salvio/dir`
+`composer require salvio/dirx`
 
 PHP 7.0 is required.
 
