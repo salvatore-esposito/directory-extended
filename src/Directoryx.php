@@ -55,7 +55,7 @@ class Directoryx extends \Directory
   public function __construct(string $directoryName)
   {
     $this->directoryName = $directoryName;
-    $this->directoryElements = $this->scan_dir();
+    $this->directoryElements = $this->scanDir();
   }
 
   /**
@@ -82,7 +82,7 @@ class Directoryx extends \Directory
   public function getRealPath(string $fileName = '') : string
   {
     $fullPathString = $fileName ? "%s/%s" : "%s%s";
-    return sprintf($fullPathString, getRealPath($this->directoryName), $fileName);
+    return sprintf($fullPathString, realpath($this->directoryName), $fileName);
   }
 
   /**
@@ -94,7 +94,7 @@ class Directoryx extends \Directory
    * @return array array of element founded.
    *
    */
-  public function scan_dir() : array
+  public function scanDir() : array
   {
     $dir  = opendir ( $this->getRealPath());
     $result = [];
@@ -186,7 +186,7 @@ class Directoryx extends \Directory
    * @return array the elements filtered by the type supplied.
    */
   public function searchByType(int $type = Directoryx::FILE
-                                      | Directoryx::DIRECTORY) : array
+                                      | Directoryx::DIRECTORY, array $elements = [] ) : array
   {
     if(!in_array($type, [Directoryx::FILE,
                          Directoryx::DIRECTORY,
@@ -197,7 +197,9 @@ class Directoryx extends \Directory
       throw new \BadFunctionCallException('Value passed not allowed!');
     }
 
-    foreach ($this->directoryElements as $element) {
+    $searchInThisElements = count($elements) ? $elements : $this->directoryElements;
+
+    foreach ($searchInThisElements as $element) {
       $isRequestedFile = ( $type === Directoryx::FILE );
       $isRequestedDir = ( $type === Directoryx::DIRECTORY );
 
@@ -225,7 +227,7 @@ class Directoryx extends \Directory
                                       | Directoryx::DIRECTORY) : array
   {
     $byString = $this->searchByString($needle);
-    return $this->searchByType($byString);
+    return $this->searchByType($type, $byString);
   }
 
 }

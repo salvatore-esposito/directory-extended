@@ -17,7 +17,7 @@ class DirectoryxTest extends TestCase
               /**
               * override
               */
-              public function scan_dir() : array
+              public function scanDir() : array
               {
                 return range(1,10);
               }
@@ -52,10 +52,10 @@ class DirectoryxTest extends TestCase
 
     public function testgetCountElements() :void
     {
-      $elements = range(1,10);
+      $expected = count(range(1,10));
 
       $this->assertEquals(
-         count($elements),
+         $expected,
          $this->dirx->getCountElements());
      }
 
@@ -96,11 +96,11 @@ class DirectoryxTest extends TestCase
 
     public function testGetTotalElementsByType() : void
     {
-      $expected = 11;
+      $expected = 10;
 
       $this->assertEquals(
         $expected,
-        $this->dirx->getTotalElementsByType('is_file')
+        $this->dirx->getTotalElementsByType(Directoryx::FILE)
       );
 
     }
